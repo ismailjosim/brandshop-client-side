@@ -1,31 +1,28 @@
-export default {
+module.exports = {
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
   ],
-  theme: {
-    extend: {},
-  },
+  theme: {},
   daisyui: {
     themes: [
       {
-        mytheme: {
+        sweetTheme: {
 
-          "primary": "#029E9D",
+          "primary": "#fb016f",
 
-          "secondary": "#FDC703",
+          "secondary": "#363435",
 
-          "accent": "#263A49",
+          "accent": "#ac86d9",
 
-          "neutral": "#777777",
+          "neutral": "#151623",
 
           "base-100": "#FFFFFF",
 
-          "info": "#17233e",
+          "info": "#80C0EA",
 
-          "success": "#029E9D",
+          "success": "#74ECC6",
 
-          "warning": "#27334C",
+          "warning": "#F9AD5D",
 
           "error": "#F32B42",
         },
