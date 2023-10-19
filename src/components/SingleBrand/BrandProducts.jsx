@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
+
 const BrandProducts = ({ movie }) => {
-    const { name, image, brand, type, details, ticketPrice, rating } = movie || {}
+    const { name, image, brand, type, details, ticketPrice, rating, _id } = movie || {}
     return (
 
         <>
@@ -37,7 +39,7 @@ const BrandProducts = ({ movie }) => {
                     </p>
                     <div className='flex justify-between items-center mt-10'>
                         <button className='btn btn-primary text-white'>Update</button>
-                        <button className='btn btn-primary text-white'>Details</button>
+                        <Link to={ `/movieDetails/${ _id }` } className='btn btn-primary text-white'>Details</Link>
                     </div>
 
                 </div>

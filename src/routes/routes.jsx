@@ -3,6 +3,7 @@ import Main from '../layouts/Main';
 import ErrorPage from '../pages/ErrorPage';
 import Home from '../pages/Home';
 import SingleBrand from '../pages/SingleBrand';
+import MovieDetails from '../pages/MovieDetails';
 
 
 const routes = createBrowserRouter([
@@ -18,6 +19,10 @@ const routes = createBrowserRouter([
             {
                 path: '/brands/:name',
                 element: <SingleBrand />
+            },
+            {
+                path: "/movieDetails/:id",
+                element: <MovieDetails />
             }
         ]
     }
