@@ -17,7 +17,7 @@ const Cart = () => {
         fetchData()
     }, [])
 
-    console.log(movies)
+
     return (
         <div>
 
