@@ -5,6 +5,7 @@ import Home from '../pages/Home';
 import SingleBrand from '../pages/SingleBrand';
 import MovieDetails from '../pages/MovieDetails';
 import Cart from '../pages/Cart';
+import Login from '../pages/Cart';
 
 
 const routes = createBrowserRouter([
@@ -28,6 +29,10 @@ const routes = createBrowserRouter([
             {
                 path: '/cart',
                 element: <Cart />
+            },
+            {
+                path: '/login',
+                element: <Login />
             }
         ]
     }

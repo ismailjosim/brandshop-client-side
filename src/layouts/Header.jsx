@@ -37,6 +37,21 @@ const Header = () => {
                     Login
                 </NavLink>
             </li>
+            <li>
+                <button
+                    className='hover:btn-secondary rounded-md hover:text-white active:bg-primary active:text-white'
+                >
+                    Log Out
+                </button>
+            </li>
+            <li>
+                <div
+                    className='relative hover:bg-transparent'
+                    to='/Login'
+                >
+                    <img className="object-cover w-10 h-10 rounded-full ring ring-primary" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=880&h=880&q=100" alt="" />
+                </div>
+            </li>
         </>
     )
 
@@ -50,7 +65,7 @@ const Header = () => {
                 </div>
                 <div className='navbar-end'>
                     <div className='navbar-center hidden lg:flex'>
-                        <ul className='menu menu-horizontal p-0 gap-3'>{ menuItems }</ul>
+                        <ul className='menu menu-horizontal p-0 gap-3 items-center'>{ menuItems }</ul>
                     </div>
                     <div className='dropdown dropdown-bottom dropdown-end'>
                         <label tabIndex={ 0 } className='btn btn-ghost lg:hidden'>
