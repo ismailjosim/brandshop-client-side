@@ -4,6 +4,7 @@ import ErrorPage from '../pages/ErrorPage';
 import Home from '../pages/Home';
 import SingleBrand from '../pages/SingleBrand';
 import MovieDetails from '../pages/MovieDetails';
+import Cart from '../pages/Cart';
 
 
 const routes = createBrowserRouter([
@@ -23,6 +24,10 @@ const routes = createBrowserRouter([
             {
                 path: "/movieDetails/:id",
                 element: <MovieDetails />
+            },
+            {
+                path: '/cart',
+                element: <Cart />
             }
         ]
     }
