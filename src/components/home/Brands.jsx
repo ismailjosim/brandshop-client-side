@@ -1,22 +1,37 @@
 import { Link } from 'react-router-dom';
 import SectionHeading from '../../utils/SectionHeading';
+import { useEffect, useState } from 'react';
 
 const heading = { primary: "Our Top Brands", secondary: "" };
 
 
 const Brands = () => {
-    // to={ `/brands/${ "item.name" }` }
+    //
+    const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        setLoading(true);
+        const fetchData = async () => {
+            const res = await fetch("https://moviedb-sigma-bice.vercel.app/brands");
+            const data = await res.json();
+            const allBrands = data.data;
+            setLoading(false);
+            setItems(allBrands);
+        }
+        fetchData()
+    }, [])
+
 
     return (
         <section>
             <SectionHeading heading={ heading } />
             <div className="w-11/12 mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
                 {/* Single Brand */ }
-                { [1, 2, 3, 4, 5, 6].map((item, idx) => {
-
+                { items && items.map((item, idx) => {
                     return (
-                        <Link key={ idx } className="w-full text-center">
-                            <img className="object-cover object-center w-full h-60 mx-auto rounded-lg" src="https://images.unsplash.com/photo-1493863641943-9b68992a8d07?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=739&q=80" alt="avatar" />
+                        <Link to={ `/brands/${ item.brandName }` } key={ idx } className="w-full text-center">
+                            <img className="w-full h-60 mx-auto rounded-lg border-2 p-5 hover:shadow-md transition-all ease-in-out duration-300 shadow-lg border-primary" src={ item.brandLogo } alt="avatar" />
                         </Link>
                     )
                 })

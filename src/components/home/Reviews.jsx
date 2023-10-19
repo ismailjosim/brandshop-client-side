@@ -11,7 +11,6 @@ export default function Reviews() {
             type: "carousel",
             focusAt: 1,
             animationDuration: 5000,
-            autoplay: 1000,
             autoplay: true,
             rewind: true,
             perView: 3,
