@@ -1,14 +1,42 @@
 import { Link } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
+import useAuth from '../hooks/useAuth'
+import { useState } from 'react';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const Login = () => {
+    const { userLogin, googleProviderLogin } = useAuth();
+    const [error, setError] = useState('');
+
     const handleLogin = (e) => {
+        setError("")
         e.preventDefault()
         const form = e.target
         const email = form.email.value
         const password = form.password.value
         console.log(email, password)
+        userLogin(email, password)
+            .then(res => {
+                if (res.user) {
+                    console.log(res.user)
+                }
+            })
+            .catch(err => setError(err.message))
     }
+
+    const googleProvider = new GoogleAuthProvider();
+    const handleGoogleLogin = () => {
+        googleProviderLogin(googleProvider)
+            .then(res => {
+                if (res.user) {
+                    console.log(res.user)
+                }
+            })
+            .catch(err => setError(err.message))
+    }
+
+
+
 
     return (
         <section>
@@ -95,9 +123,10 @@ const Login = () => {
                         </div>
                     </form>
                     <div className='mt-6'>
+                        { error && <p className='mt-4 text-error font-semibold'>{ error }</p> }
                         <p className='mt-4 text-center text-gray-600'>or sign in with</p>
 
-                        <button className='flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg  hover:bg-gray-50 w-full '>
+                        <button onClick={ handleGoogleLogin } className='flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg  hover:bg-gray-50 w-full '>
                             <FcGoogle className='w-6 h-6 mx-2'></FcGoogle>
                             <span className='mx-2'>Sign in with Google</span>
                         </button>
