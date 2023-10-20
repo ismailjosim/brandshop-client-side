@@ -1,29 +1,11 @@
-import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { AiTwotoneStar } from 'react-icons/ai'
-import { useParams } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
+import useMovieDetails from '../hooks/useMovieDetails'
 
 const MovieDetails = () => {
-    const { id } = useParams()
-    const [details, setDetails] = useState(null)
-    const [loading, setLoading] = useState(false)
     const { user } = useAuth();
-
-    useEffect(() => {
-        setLoading(true)
-        const fetchData = async () => {
-            const res = await fetch(
-                `${ import.meta.env.VITE_SERVER_URL }/singleMovie/${ id }`,
-            )
-            const data = await res.json()
-            const singleMovie = data.data
-            setLoading(false)
-            setDetails(singleMovie)
-        }
-        fetchData()
-    }, [])
-
+    const { singleMovie } = useMovieDetails();
     const {
         name,
         image,
@@ -33,7 +15,7 @@ const MovieDetails = () => {
         ticketPrice,
         rating,
         _id,
-    } = details || {}
+    } = singleMovie || {}
 
     const handleBook = () => {
         const data = {

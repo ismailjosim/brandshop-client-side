@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { BsFillTrashFill } from 'react-icons/bs'
-import { BiEdit } from 'react-icons/bi'
 import useAuth from '../hooks/useAuth'
 import ProductTable from '../components/AllProducts/ProductTable'
 import toast from 'react-hot-toast'

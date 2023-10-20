@@ -1,26 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import toast from 'react-hot-toast'
+import useBrands from '../hooks/useBrands'
 
 const imageHostKey = import.meta.env.VITE_imgbb_key
 
 const AddProduct = () => {
     const [loading, setLoading] = useState(false)
-    const [brands, setBrands] = useState([])
-
-    useEffect(() => {
-        setLoading(true)
-        const fetchData = async () => {
-            const res = await fetch(`${ import.meta.env.VITE_SERVER_URL }/brands`)
-            const data = await res.json()
-            const allBrands = data.data
-            setLoading(false)
-            setBrands(allBrands)
-        }
-        fetchData()
-    }, [])
-
+    const { brands } = useBrands()
     const [selectedBrand, setSelectedBrand] = useState('Select brand')
 
     const handleAddMovie = (event) => {

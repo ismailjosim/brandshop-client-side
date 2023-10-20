@@ -1,5 +1,6 @@
 import { BsFillTrashFill } from 'react-icons/bs'
 import { BiEdit } from 'react-icons/bi'
+import { Link } from 'react-router-dom'
 
 
 const ProductTable = ({ movie, handleDeleteMovie }) => {
@@ -41,9 +42,9 @@ const ProductTable = ({ movie, handleDeleteMovie }) => {
                         <BsFillTrashFill className='w-5 h-5 text-primary' />
                     </button>
 
-                    <button className='text-gray-500 transition-colors duration-200 hover:text-yellow-500 focus:outline-none'>
+                    <Link to={ `/update_product/${ _id }` } className='text-gray-500 transition-colors duration-200 hover:text-yellow-500 focus:outline-none'>
                         <BiEdit className='w-5 h-5 text-warning'></BiEdit>
-                    </button>
+                    </Link>
                 </div>
             </td>
         </tr>

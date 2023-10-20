@@ -10,6 +10,7 @@ import Register from '../pages/Register'
 import Private from './Private'
 import AddProduct from '../pages/AddProduct'
 import AllProducts from '../pages/AllProducts'
+import UpdateProduct from '../pages/UpdateProduct'
 
 const routes = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ const routes = createBrowserRouter([
             {
                 path: '/add_product',
                 element: <AddProduct />,
+            },
+            {
+                path: '/update_product/:id',
+                element: <UpdateProduct />,
             },
             {
                 path: '/products',
