@@ -1,20 +1,18 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
-import toast from 'react-hot-toast';
-
+import toast from 'react-hot-toast'
 
 const Header = () => {
-    const { user, userLogout } = useAuth();
+    const { user, userLogout } = useAuth()
 
     const handleLogOut = () => {
         userLogout()
-            .then(res => {
-                toast.success("User Logged Out!")
+            .then((res) => {
+                toast.success('User Logged Out!')
             })
-            .catch(err => { })
+            .catch((err) => { })
     }
-
 
     const menuItems = (
         <>
@@ -37,30 +35,40 @@ const Header = () => {
             <li>
                 <NavLink
                     className='hover:btn-secondary rounded-md hover:text-white active:bg-primary active:text-white'
+                    to='/products'
+                >
+                    All Product
+                </NavLink>
+            </li>
+            <li>
+                <NavLink
+                    className='hover:btn-secondary rounded-md hover:text-white active:bg-primary active:text-white'
                     to='/cart'
                 >
                     My Cart
                 </NavLink>
             </li>
-            { user ? <>
-                <li>
-                    <div
-                        className='relative hover:bg-transparent'
-                        to='/Login'
-                    >
-                        <img className="object-cover w-10 h-10 rounded-full ring ring-primary" src={ user?.photoURL } alt="" />
-                    </div>
-                </li>
-                <li>
-                    <button
-                        onClick={ handleLogOut }
-                        className='hover:btn-secondary rounded-md hover:text-white active:bg-primary active:text-white'
-                    >
-                        Log Out
-                    </button>
-                </li>
-            </>
-                :
+            { user ? (
+                <>
+                    <li>
+                        <div className='relative hover:bg-transparent' to='/Login'>
+                            <img
+                                className='object-cover w-10 h-10 rounded-full ring ring-primary'
+                                src={ user?.photoURL }
+                                alt=''
+                            />
+                        </div>
+                    </li>
+                    <li>
+                        <button
+                            onClick={ handleLogOut }
+                            className='hover:btn-secondary rounded-md hover:text-white active:bg-primary active:text-white'
+                        >
+                            Log Out
+                        </button>
+                    </li>
+                </>
+            ) : (
                 <li>
                     <NavLink
                         className='hover:btn-secondary rounded-md hover:text-white active:bg-primary active:text-white'
@@ -69,8 +77,7 @@ const Header = () => {
                         Login
                     </NavLink>
                 </li>
-            }
-
+            ) }
         </>
     )
 
@@ -84,7 +91,9 @@ const Header = () => {
                 </div>
                 <div className='navbar-end'>
                     <div className='navbar-center hidden lg:flex'>
-                        <ul className='menu menu-horizontal p-0 gap-3 items-center'>{ menuItems }</ul>
+                        <ul className='menu menu-horizontal p-0 gap-3 items-center'>
+                            { menuItems }
+                        </ul>
                     </div>
                     <div className='dropdown dropdown-bottom dropdown-end'>
                         <label tabIndex={ 0 } className='btn btn-ghost lg:hidden'>

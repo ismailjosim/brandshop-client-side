@@ -9,6 +9,7 @@ import Login from '../pages/Login'
 import Register from '../pages/Register'
 import Private from './Private'
 import AddProduct from '../pages/AddProduct'
+import AllProducts from '../pages/AllProducts'
 
 const routes = createBrowserRouter([
     {
@@ -33,8 +34,16 @@ const routes = createBrowserRouter([
                 ),
             },
             {
-                path: "/add_product",
-                element: <AddProduct />
+                path: '/add_product',
+                element: <AddProduct />,
+            },
+            {
+                path: '/products',
+                element: (
+                    <Private>
+                        <AllProducts />
+                    </Private>
+                ),
             },
             {
                 path: '/cart',

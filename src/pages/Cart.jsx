@@ -8,13 +8,7 @@ const Cart = () => {
     const [loading, setLoading] = useState(false)
     const { user } = useAuth()
 
-
-
     useEffect(() => {
-
-
-
-
         setLoading(true)
         const fetchData = async () => {
             const res = await fetch(
@@ -36,7 +30,7 @@ const Cart = () => {
                     <span className='mt-1 font-bold text-primary'>
                         { movies && movies?.length }
                     </span>
-                    <span>{ movies?.length ? 0 >= 'items' : 'item' }</span>
+                    <span>{ movies?.length >= 0 ? 'items' : 'item' }</span>
                 </h2>
             </div>
 
@@ -81,16 +75,8 @@ const Cart = () => {
                                 <tbody className='bg-white divide-y divide-gray-200  '>
                                     { movies &&
                                         movies.map((movie, idx) => {
-                                            const {
-                                                name,
-                                                image,
-                                                brand,
-                                                type,
-                                                ticketPrice,
-
-                                                _id,
-                                                email,
-                                            } = movie
+                                            const { name, image, brand, type, ticketPrice, email } =
+                                                movie
                                             return (
                                                 <tr key={ idx }>
                                                     <td className='px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap'>
