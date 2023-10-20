@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import { AiTwotoneStar } from 'react-icons/ai'
 import { json, useParams } from 'react-router-dom'
+import useAuth from '../hooks/useAuth'
 
 const MovieDetails = () => {
     const { id } = useParams()
     const [details, setDetails] = useState(null)
     const [loading, setLoading] = useState(false)
+    const { user } = useAuth();
 
     useEffect(() => {
         setLoading(true)
@@ -39,8 +42,8 @@ const MovieDetails = () => {
             brand,
             type,
             ticketPrice,
+            email: user?.email
         }
-        console.log(data)
 
         fetch(`${ import.meta.env.VITE_SERVER_URL }/booking`, {
             method: 'POST',
@@ -52,10 +55,9 @@ const MovieDetails = () => {
             .then((res) => res.json())
             .then((responseData) => {
                 if (responseData.data.acknowledged) {
-
+                    toast.success('Booked Successfully ❤️')
                 }
-            });
-
+            })
     }
 
     return (
