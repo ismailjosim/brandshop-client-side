@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { BsFillTrashFill } from 'react-icons/bs'
 import { BiEdit } from 'react-icons/bi'
 import useAuth from '../hooks/useAuth'
+import ProductTable from '../components/AllProducts/ProductTable'
+import toast from 'react-hot-toast'
 
 const Cart = () => {
     const [movies, setMovies] = useState([])
@@ -21,6 +23,21 @@ const Cart = () => {
         }
         fetchData()
     }, [])
+
+    const handleDeleteMovie = (id) => {
+        fetch(`${ import.meta.env.VITE_SERVER_URL }/delete_cart/${ id }`, {
+            method: 'DELETE',
+            'content-type': 'application/json',
+        })
+            .then((res) => res.json())
+            .then((deleteResult) => {
+                if (deleteResult.data.deletedCount > 0) {
+                    toast.success('Movie Delete From Database Successfully ❤️')
+                    const restMovies = movies.filter((mv) => mv._id !== id)
+                    setMovies(restMovies)
+                }
+            })
+    }
 
     return (
         <section className='w-11/12 mx-auto'>
@@ -74,59 +91,13 @@ const Cart = () => {
                                 </thead>
                                 <tbody className='bg-white divide-y divide-gray-200  '>
                                     { movies &&
-                                        movies.map((movie, idx) => {
-                                            const { name, image, brand, type, ticketPrice, email } =
-                                                movie
-                                            return (
-                                                <tr key={ idx }>
-                                                    <td className='px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap'>
-                                                        <div className='inline-flex items-center gap-x-3'>
-                                                            <div className='flex items-center gap-x-2'>
-                                                                <img
-                                                                    className='w-20 h-20 rounded'
-                                                                    src={ image }
-                                                                    alt=''
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap'>
-                                                        <div className='inline-flex items-center px-3 py-1 rounded-full gap-x-2 bg-emerald-100/60 '>
-                                                            <span className='h-1.5 w-1.5 rounded-full bg-emerald-500'></span>
-
-                                                            <h2 className='text-sm font-normal text-emerald-500'>
-                                                                { name }
-                                                            </h2>
-                                                        </div>
-                                                    </td>
-                                                    <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
-                                                        { brand }
-                                                    </td>
-                                                    <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
-                                                        { type }
-                                                    </td>
-
-                                                    <td className='px-4 py-4 text-sm text-gray-500  whitespace-nowrap'>
-                                                        { email }
-                                                    </td>
-                                                    <td className='px-4 py-4 text-base text-primary font-bold  whitespace-nowrap'>
-                                                        ${ ticketPrice }
-                                                    </td>
-
-                                                    <td className='px-4 py-4 text-sm whitespace-nowrap'>
-                                                        <div className='flex items-center gap-x-6'>
-                                                            <button className='text-gray-500 transition-colors duration-200   hover:text-red-500 focus:outline-none'>
-                                                                <BsFillTrashFill className='w-5 h-5 text-primary' />
-                                                            </button>
-
-                                                            <button className='text-gray-500 transition-colors duration-200 hover:text-yellow-500 focus:outline-none'>
-                                                                <BiEdit className='w-5 h-5 text-warning'></BiEdit>
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            )
-                                        }) }
+                                        movies.map((movie, idx) => (
+                                            <ProductTable
+                                                handleDeleteMovie={ handleDeleteMovie }
+                                                movie={ movie }
+                                                key={ idx }
+                                            ></ProductTable>
+                                        )) }
                                 </tbody>
                             </table>
                         </div>
