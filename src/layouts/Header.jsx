@@ -1,10 +1,20 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
+import toast from 'react-hot-toast';
 
 
 const Header = () => {
-    const { user } = useAuth();
+    const { user, userLogout } = useAuth();
+
+    const handleLogOut = () => {
+        userLogout()
+            .then(res => {
+                toast.success("User Logged Out!")
+            })
+            .catch(err => { })
+    }
+
 
     const menuItems = (
         <>
@@ -43,6 +53,7 @@ const Header = () => {
                 </li>
                 <li>
                     <button
+                        onClick={ handleLogOut }
                         className='hover:btn-secondary rounded-md hover:text-white active:bg-primary active:text-white'
                     >
                         Log Out

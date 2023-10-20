@@ -1,10 +1,71 @@
 import { Link } from 'react-router-dom'
+import useAuth from '../hooks/useAuth';
+import { useState } from 'react';
+import useNavigateUser from '../hooks/useNavigateUser';
+import toast from 'react-hot-toast';
+
+const imageHostKey = import.meta.env.VITE_imgbb_key;
 
 const Register = () => {
+    const { createNewUser, updateUserProfile } = useAuth();
+    const [error, setError] = useState('');
+    const [navigateNow] = useNavigateUser();
+
+    const handleRegister = e => {
+        setError('');
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const confirmPassword = form.confirmPassword.value;
+
+
+        const imageInput = form.photo;
+        const imageFile = imageInput.files[0];
+
+        const formData = new FormData();
+        formData.append('image', imageFile);
+
+
+        fetch(`https://api.imgbb.com/1/upload?key=${ imageHostKey }`, {
+            method: "POST",
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+
+                if (imgData.success) {
+                    createNewUser(email, password)
+                        .then(result => {
+                            if (result.user) {
+                                toast.success("User Created Successfully", { autoClose: 1000 });
+                                const profile = {
+                                    displayName: name,
+                                    photoURL: imgData.data.display_url,
+                                }
+
+                                handleUpdateProfile(profile)
+                            }
+                        })
+                }
+            })
+            .catch(error => setError(error.message))
+    }
+
+    const handleUpdateProfile = profile => {
+        // Update New User
+        updateUserProfile(profile)
+            .then(() => {
+                navigateNow()
+            })
+            .catch(error => setError(error.message))
+    }
+
     return (
         <section>
             <div className='flex items-center justify-center px-6 mx-auto lg:my-20 my-10'>
-                <form className='w-full max-w-md'>
+                <form onSubmit={ handleRegister } className='w-full max-w-md'>
                     <div className='flex justify-center mx-auto'>
                         <h3 className='text-2xl font-bold uppercase text-primary'>
                             Register New User
@@ -47,6 +108,7 @@ const Register = () => {
 
                         <input
                             type='text'
+                            name='name'
                             className='block w-full py-3 text-gray-700 bg-white border rounded-lg px-11    focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40'
                             placeholder='Username'
                         />
@@ -72,8 +134,7 @@ const Register = () => {
                         </svg>
 
                         <h2 className='mx-3 text-gray-400'>Profile Photo</h2>
-
-                        <input id='dropzone-file' type='file' className='hidden' />
+                        <input name='photo' id='dropzone-file' type='file' className='hidden' />
                     </label>
 
                     <div className='relative flex items-center mt-6'>
@@ -96,6 +157,7 @@ const Register = () => {
 
                         <input
                             type='email'
+                            name='email'
                             className='block w-full py-3 text-gray-700 bg-white border rounded-lg px-11    focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40'
                             placeholder='Email address'
                         />
@@ -121,6 +183,7 @@ const Register = () => {
 
                         <input
                             type='password'
+                            name='password'
                             className='block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg    focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40'
                             placeholder='Password'
                         />
@@ -146,6 +209,7 @@ const Register = () => {
 
                         <input
                             type='password'
+                            name='confirmPassword'
                             className='block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg    focus:border-blue-400  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40'
                             placeholder='Confirm Password'
                         />
@@ -155,7 +219,7 @@ const Register = () => {
                         <button className='w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50'>
                             Sign Up
                         </button>
-
+                        { error && <p className='mt-4 text-error font-semibold'>{ error }</p> }
                         <div className='mt-6 text-center '>
                             <Link
                                 to={ '/login' }

@@ -3,10 +3,13 @@ import { FcGoogle } from 'react-icons/fc'
 import useAuth from '../hooks/useAuth'
 import { useState } from 'react';
 import { GoogleAuthProvider } from 'firebase/auth';
+import useNavigateUser from '../hooks/useNavigateUser';
+import toast from 'react-hot-toast';
 
 const Login = () => {
     const { userLogin, googleProviderLogin } = useAuth();
     const [error, setError] = useState('');
+    const [navigateNow] = useNavigateUser();
 
     const handleLogin = (e) => {
         setError("")
@@ -18,7 +21,8 @@ const Login = () => {
         userLogin(email, password)
             .then(res => {
                 if (res.user) {
-                    console.log(res.user)
+                    toast.success("User Login Successfully", { autoClose: 1000 });
+                    navigateNow()
                 }
             })
             .catch(err => setError(err.message))
@@ -29,7 +33,8 @@ const Login = () => {
         googleProviderLogin(googleProvider)
             .then(res => {
                 if (res.user) {
-                    console.log(res.user)
+                    toast.success("User Login Successfully", { autoClose: 1000 });
+                    navigateNow()
                 }
             })
             .catch(err => setError(err.message))
