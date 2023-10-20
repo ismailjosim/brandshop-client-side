@@ -8,6 +8,7 @@ import Cart from '../pages/Cart'
 import Login from '../pages/Login'
 import Register from '../pages/Register'
 import Private from './Private'
+import AddProduct from '../pages/AddProduct'
 
 const routes = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const routes = createBrowserRouter([
                         <MovieDetails />
                     </Private>
                 ),
+            },
+            {
+                path: "/add_product",
+                element: <AddProduct />
             },
             {
                 path: '/cart',

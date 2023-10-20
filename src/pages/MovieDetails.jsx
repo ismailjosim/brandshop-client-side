@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { AiTwotoneStar } from 'react-icons/ai'
-import { json, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 
 const MovieDetails = () => {

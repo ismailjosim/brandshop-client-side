@@ -8,7 +8,13 @@ const Cart = () => {
     const [loading, setLoading] = useState(false)
     const { user } = useAuth()
 
+
+
     useEffect(() => {
+
+
+
+
         setLoading(true)
         const fetchData = async () => {
             const res = await fetch(

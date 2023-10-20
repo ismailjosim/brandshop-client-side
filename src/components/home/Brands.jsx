@@ -7,7 +7,6 @@ const heading = { primary: "Our Top Brands", secondary: "" };
 
 
 const Brands = () => {
-    //
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
 
