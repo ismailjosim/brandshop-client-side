@@ -1,14 +1,13 @@
-import { createBrowserRouter } from 'react-router-dom';
-import Main from '../layouts/Main';
-import ErrorPage from '../pages/ErrorPage';
-import Home from '../pages/Home';
-import SingleBrand from '../pages/SingleBrand';
-import MovieDetails from '../pages/MovieDetails';
-import Cart from '../pages/Cart';
-import Login from '../pages/Login';
-import Register from '../pages/Register';
-
-
+import { createBrowserRouter } from 'react-router-dom'
+import Main from '../layouts/Main'
+import ErrorPage from '../pages/ErrorPage'
+import Home from '../pages/Home'
+import SingleBrand from '../pages/SingleBrand'
+import MovieDetails from '../pages/MovieDetails'
+import Cart from '../pages/Cart'
+import Login from '../pages/Login'
+import Register from '../pages/Register'
+import Private from './Private'
 
 const routes = createBrowserRouter([
     {
@@ -18,30 +17,38 @@ const routes = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Home />
+                element: <Home />,
             },
             {
                 path: '/brands/:name',
-                element: <SingleBrand />
+                element: <SingleBrand />,
             },
             {
-                path: "/movieDetails/:id",
-                element: <MovieDetails />
+                path: '/movieDetails/:id',
+                element: (
+                    <Private>
+                        <MovieDetails />
+                    </Private>
+                ),
             },
             {
                 path: '/cart',
-                element: <Cart />
+                element: (
+                    <Private>
+                        <Cart />
+                    </Private>
+                ),
             },
             {
                 path: '/login',
-                element: <Login />
+                element: <Login />,
             },
             {
                 path: '/register',
-                element: <Register />
-            }
-        ]
-    }
+                element: <Register />,
+            },
+        ],
+    },
 ])
 
-export default routes;
+export default routes
