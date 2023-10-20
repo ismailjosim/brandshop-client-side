@@ -2,13 +2,12 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 import useBrands from '../hooks/useBrands'
 import useMovieDetails from '../hooks/useMovieDetails'
-import useNavigateUser from '../hooks/useNavigateUser'
 import { useNavigate } from 'react-router-dom'
 
 const UpdateProduct = () => {
+    const { brands } = useBrands()
     const { singleMovie } = useMovieDetails()
     const [loading, setLoading] = useState(false)
-    const { brands } = useBrands()
     const { name, image, brand, type, details, ticketPrice, rating, _id } = singleMovie || {};
     const [selectedBrand, setSelectedBrand] = useState(brand);
     const navigate = useNavigate();
@@ -46,7 +45,7 @@ const UpdateProduct = () => {
                     })
                     setLoading(false)
                     form.reset()
-                    navigate("/products")
+                    navigate("/")
                 }
             })
     }

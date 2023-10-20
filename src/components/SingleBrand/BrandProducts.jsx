@@ -38,7 +38,7 @@ const BrandProducts = ({ movie }) => {
                         { details }
                     </p>
                     <div className='flex justify-between items-center mt-10'>
-                        <button className='btn btn-primary text-white'>Update</button>
+                        <Link to={ `/update_product/${ _id }` } className='btn btn-primary text-white'>Update</Link>
                         <Link to={ `/movieDetails/${ _id }` } className='btn btn-primary text-white'>Details</Link>
                     </div>
 
