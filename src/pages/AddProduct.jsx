@@ -44,7 +44,6 @@ const AddProduct = () => {
                     })
                         .then((res) => res.json())
                         .then((data) => {
-                            console.log(data)
                             if (data.data.acknowledged) {
                                 toast.success('Movie added Successfully 🎉', {
                                     autoClose: 1000,

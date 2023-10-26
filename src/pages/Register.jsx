@@ -20,6 +20,10 @@ const Register = () => {
         const password = form.password.value;
         const confirmPassword = form.confirmPassword.value;
 
+        const userInfo = {
+            name, email, role: 'buyer'
+        }
+
 
         const imageInput = form.photo;
         const imageFile = imageInput.files[0];
@@ -39,13 +43,25 @@ const Register = () => {
                     createNewUser(email, password)
                         .then(result => {
                             if (result.user) {
-                                toast.success("User Created Successfully", { autoClose: 1000 });
-                                const profile = {
-                                    displayName: name,
-                                    photoURL: imgData.data.display_url,
-                                }
+                                fetch(`${ import.meta.env.VITE_SERVER_URL }/users`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'content-type': 'application/json',
+                                    },
+                                    body: JSON.stringify(userInfo),
+                                })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        if (data) {
+                                            toast.success("User Created Successfully", { autoClose: 1000 });
+                                            const profile = {
+                                                displayName: name,
+                                                photoURL: imgData.data.display_url,
+                                            }
 
-                                handleUpdateProfile(profile)
+                                            handleUpdateProfile(profile)
+                                        }
+                                    })
                             }
                         })
                 }

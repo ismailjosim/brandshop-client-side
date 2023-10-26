@@ -5,6 +5,9 @@ import { useState } from 'react';
 import { GoogleAuthProvider } from 'firebase/auth';
 import useNavigateUser from '../hooks/useNavigateUser';
 import toast from 'react-hot-toast';
+import axios from 'axios';
+
+//node require('crypto').randomBytes(64).toString('hex')
 
 const Login = () => {
     const { userLogin, googleProviderLogin } = useAuth();
@@ -17,12 +20,21 @@ const Login = () => {
         const form = e.target
         const email = form.email.value
         const password = form.password.value
-        console.log(email, password)
         userLogin(email, password)
             .then(res => {
                 if (res.user) {
-                    toast.success("User Login Successfully", { autoClose: 1000 });
-                    navigateNow()
+
+                    // get access token
+                    const user = { email }
+                    axios.post(`${ import.meta.env.VITE_SERVER_URL }/jwt`, user, { withCredentials: true }) // with withCredentials: true will save token in cookie
+                        .then(res => {
+                            if (res.data.status) {
+                                // console.log(res.data.status)
+                                toast.success("User Login Successfully", { autoClose: 1000 });
+                                navigateNow()
+                            }
+                        })
+
                 }
             })
             .catch(err => setError(err.message))
@@ -33,7 +45,7 @@ const Login = () => {
         googleProviderLogin(googleProvider)
             .then(res => {
                 if (res.user) {
-                    toast.success("User Login Successfully", { autoClose: 1000 });
+                    toast.success("User Login Successfully", { autoClose: 1000, position: "top-left" });
                     navigateNow()
                 }
             })
