@@ -9,6 +9,7 @@ const AllProducts = () => {
     useEffect(() => {
         setLoading(true)
         const fetchData = async () => {
+
             const res = await fetch(`${ import.meta.env.VITE_SERVER_URL }/movies`)
             const data = await res.json()
             const allMovies = data.data

@@ -26,7 +26,9 @@ const Login = () => {
 
                     // get access token
                     const user = { email }
-                    axios.post(`${ import.meta.env.VITE_SERVER_URL }/jwt`, user, { withCredentials: true }) // with withCredentials: true will save token in cookie
+                    axios.post(`${ import.meta.env.VITE_SERVER_URL }/jwt`, user, { withCredentials: true })
+                        // * with withCredentials: true will save token in browser cookie
+
                         .then(res => {
                             if (res.data.status) {
                                 // console.log(res.data.status)

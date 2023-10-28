@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import ProductTable from '../components/AllProducts/ProductTable'
 import toast from 'react-hot-toast'
+import axios from 'axios'
 
 const Cart = () => {
     const [movies, setMovies] = useState([])
@@ -10,16 +11,30 @@ const Cart = () => {
 
     useEffect(() => {
         setLoading(true)
-        const fetchData = async () => {
-            const res = await fetch(
-                `${ import.meta.env.VITE_SERVER_URL }/cart?email=${ user?.email }`,
-            )
-            const data = await res.json()
-            const allMovies = data.data
-            setLoading(false)
-            setMovies(allMovies)
-        }
-        fetchData()
+        const url = `${ import.meta.env.VITE_SERVER_URL }/cart?email=${ user?.email }`
+        axios.get(url, { withCredentials: true })
+            .then(res => {
+                const allMovies = res.data.data
+                setLoading(false)
+                setMovies(allMovies)
+            })
+
+
+        // const fetchData = async () => {
+        //     const res = await fetch(
+        //         `${ import.meta.env.VITE_SERVER_URL }/cart?email=${ user?.email }`,
+        //         {
+        //             credentials: 'include', // Include cookies with the request
+        //         }
+        //     );
+        //     const data = await res.json();
+        //     const allMovies = data.data;
+        //     setLoading(false);
+        //     setMovies(allMovies);
+        // };
+
+        // fetchData();
+
     }, [])
 
     const handleDeleteMovie = (id) => {

@@ -9,7 +9,7 @@ const Header = () => {
     const handleLogOut = () => {
         userLogout()
             .then((res) => {
-                toast.success('User Logged Out!')
+                toast.success('User Logged Out!', { position: "top-center" })
             })
             .catch((err) => { })
     }
