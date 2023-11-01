@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-
-
 const useBrands = () => {
     const [loading, setLoading] = useState(false)
     const [brands, setBrands] = useState([])
+
 
     useEffect(() => {
         setLoading(true)

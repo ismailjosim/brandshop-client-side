@@ -11,7 +11,7 @@ const useNavigateUser = () => {
         setTimeout(() => { navigate(from, { replace: true }) }, 1);
     }
 
-    return [navigateNow];
+    return navigateNow;
 };
 
 export default useNavigateUser;

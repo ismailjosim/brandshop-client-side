@@ -9,7 +9,7 @@ const imageHostKey = import.meta.env.VITE_imgbb_key;
 const Register = () => {
     const { createNewUser, updateUserProfile } = useAuth();
     const [error, setError] = useState('');
-    const [navigateNow] = useNavigateUser();
+    const navigateNow = useNavigateUser();
 
     const handleRegister = e => {
         setError('');

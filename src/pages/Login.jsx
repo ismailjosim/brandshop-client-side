@@ -12,7 +12,7 @@ import axios from 'axios';
 const Login = () => {
     const { userLogin, googleProviderLogin } = useAuth();
     const [error, setError] = useState('');
-    const [navigateNow] = useNavigateUser();
+    const navigateNow = useNavigateUser();
 
     const handleLogin = (e) => {
         setError("")

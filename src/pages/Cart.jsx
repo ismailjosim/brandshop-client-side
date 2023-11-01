@@ -3,23 +3,23 @@ import useAuth from '../hooks/useAuth'
 import ProductTable from '../components/AllProducts/ProductTable'
 import toast from 'react-hot-toast'
 import axios from 'axios'
+import useAxiosSecure from '../hooks/useAxiosSecure'
 
 const Cart = () => {
     const [movies, setMovies] = useState([])
     const [loading, setLoading] = useState(false)
     const { user } = useAuth()
+    const axiosSecure = useAxiosSecure()
 
     useEffect(() => {
         setLoading(true)
-        const url = `${ import.meta.env.VITE_SERVER_URL }/cart?email=${ user?.email }`
-        axios.get(url, { withCredentials: true })
+        const url = `/cart?email=${ user?.email }`
+        axiosSecure.get(url)
             .then(res => {
                 const allMovies = res.data.data
                 setLoading(false)
                 setMovies(allMovies)
             })
-
-
         // const fetchData = async () => {
         //     const res = await fetch(
         //         `${ import.meta.env.VITE_SERVER_URL }/cart?email=${ user?.email }`,
@@ -32,7 +32,6 @@ const Cart = () => {
         //     setLoading(false);
         //     setMovies(allMovies);
         // };
-
         // fetchData();
 
     }, [])
