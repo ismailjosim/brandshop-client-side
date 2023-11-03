@@ -3,6 +3,7 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {},
+  darkMode: "class",
   daisyui: {
     themes: [
       {

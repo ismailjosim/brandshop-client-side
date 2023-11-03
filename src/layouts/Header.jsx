@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 import toast from 'react-hot-toast'
+import ThemeSwitcher from './ThemeSwitcher'
 
 const Header = () => {
     const { user, userLogout } = useAuth()
@@ -78,11 +79,12 @@ const Header = () => {
                     </NavLink>
                 </li>
             ) }
+            <li><span className='h-10 bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent'><ThemeSwitcher /></span></li>
         </>
     )
 
     return (
-        <header className='border-b-2'>
+        <header className='border-b-2 dark:bg-gray-800 dark:border-gray-700 text-gray-900 dark:text-white'>
             <div className='navbar font-semibold lg:w-11/12 mx-auto'>
                 <div className='navbar-start'>
                     <Link className='text-2xl font-bold uppercase text-primary' to='/'>

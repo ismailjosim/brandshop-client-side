@@ -1,6 +1,8 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth'
 import auth from '../config/firebase.config';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 
 
@@ -45,8 +47,26 @@ const AuthProvider = ({ children }) => {
     // Monitor user changes
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
+            const loggedUser = { email: currentUser?.email };
             setUser(currentUser)
             setLoading(false);
+            if (currentUser) {
+                axios.post('https://moviedb-sigma-bice.vercel.app/jwt', loggedUser, { withCredentials: true })
+                    .then(res => {
+                        if (res.data) {
+                            // console.log("Token", res.data)
+                            // toast.success("Token Added ⭐")
+                        }
+                    })
+            } else {
+                axios.post('https://moviedb-sigma-bice.vercel.app/logout', loggedUser, { withCredentials: true })
+                    .then(res => {
+                        if (res.data) {
+                            console.log("Token", res.data)
+                            // toast.success("Token Removed ⭐")
+                        }
+                    })
+            }
         })
 
         return () => {
