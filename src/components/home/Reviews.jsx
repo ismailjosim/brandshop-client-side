@@ -35,6 +35,8 @@ export default function Reviews() {
         }
     }, [])
 
+
+
     return (
         <>
             {/*<!-- Component: Testimonial carousel --> */ }

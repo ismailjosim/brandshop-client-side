@@ -62,7 +62,7 @@ const AuthProvider = ({ children }) => {
                 axios.post('https://moviedb-sigma-bice.vercel.app/logout', loggedUser, { withCredentials: true })
                     .then(res => {
                         if (res.data) {
-                            console.log("Token", res.data)
+                            // console.log("Token", res.data)
                             // toast.success("Token Removed ⭐")
                         }
                     })
@@ -79,9 +79,6 @@ const AuthProvider = ({ children }) => {
     const userLogout = () => {
         return signOut(auth)
     }
-
-
-
     const authInfo = {
         user,
         loading,
