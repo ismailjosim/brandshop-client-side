@@ -10,7 +10,7 @@ const AllProducts = () => {
         setLoading(true)
         const fetchData = async () => {
 
-            const res = await fetch(`${ import.meta.env.VITE_SERVER_URL }/movies`)
+            const res = await fetch(`${ import.meta.env.VITE_SERVER_URL }/movies`, { credentials: "include" })
             const data = await res.json()
             const allMovies = data.data
             setLoading(false)
@@ -20,18 +20,24 @@ const AllProducts = () => {
     }, [])
 
     const handleDeleteMovie = (id) => {
-        fetch(`${ import.meta.env.VITE_SERVER_URL }/delete_movies/${ id }`, {
-            method: 'DELETE',
-            'content-type': 'application/json',
-        })
-            .then((res) => res.json())
-            .then((deleteResult) => {
-                if (deleteResult.data.deletedCount > 0) {
-                    toast.success('Movie Delete From Database Successfully ❤️')
-                    const restMovies = movies.filter((mv) => mv._id !== id)
-                    setMovies(restMovies)
-                }
+        const confirmMessage = confirm("Are you Sure!");
+        if (confirmMessage) {
+            fetch(`${ import.meta.env.VITE_SERVER_URL }/delete_movies/${ id }`, {
+                method: 'DELETE',
+                'content-type': 'application/json',
             })
+                .then((res) => res.json())
+                .then((deleteResult) => {
+                    if (deleteResult.data.deletedCount > 0) {
+                        toast.success('Movie Delete From Database Successfully ❤️')
+                        const restMovies = movies.filter((mv) => mv._id !== id)
+                        setMovies(restMovies)
+                    }
+                })
+        }
+
+
+
     }
 
     return (

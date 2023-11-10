@@ -51,19 +51,15 @@ const AuthProvider = ({ children }) => {
             setUser(currentUser)
             setLoading(false);
             if (currentUser) {
-                axios.post('https://moviedb-sigma-bice.vercel.app/jwt', loggedUser, { withCredentials: true })
+                axios.post('http://localhost:5000/jwt', loggedUser, { withCredentials: true })
                     .then(res => {
                         if (res.data) {
-                            // console.log("Token", res.data)
-                            // toast.success("Token Added ⭐")
                         }
                     })
             } else {
-                axios.post('https://moviedb-sigma-bice.vercel.app/logout', loggedUser, { withCredentials: true })
+                axios.post('http://localhost:5000/logout', loggedUser, { withCredentials: true })
                     .then(res => {
                         if (res.data) {
-                            // console.log("Token", res.data)
-                            // toast.success("Token Removed ⭐")
                         }
                     })
             }

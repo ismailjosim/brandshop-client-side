@@ -23,19 +23,20 @@ const Login = () => {
         userLogin(email, password)
             .then(res => {
                 if (res.user) {
-
+                    toast.success("User Login Successfully", { autoClose: 1000 });
+                    navigateNow()
                     // get access token
-                    const user = { email }
-                    axios.post(`${ import.meta.env.VITE_SERVER_URL }/jwt`, user, { withCredentials: true })
-                        // * with withCredentials: true will save token in browser cookie
+                    // const user = { email }
+                    // axios.post(`${ import.meta.env.VITE_SERVER_URL }/jwt`, user, { withCredentials: true })
+                    //     // * with withCredentials: true will save token in browser cookie
 
-                        .then(res => {
-                            if (res.data.status) {
-                                // console.log(res.data.status)
-                                toast.success("User Login Successfully", { autoClose: 1000 });
-                                navigateNow()
-                            }
-                        })
+                    //     .then(res => {
+                    //         if (res.data.status) {
+                    //             // console.log(res.data.status)
+                    //             toast.success("User Login Successfully", { autoClose: 1000 });
+                    //             navigateNow()
+                    //         }
+                    //     })
 
                 }
             })

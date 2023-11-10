@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 // create axiosSecure
 const axiosSecure = axios.create({
-    baseURL: "https://moviedb-sigma-bice.vercel.app",
+    baseURL: "http://localhost:5000",
     withCredentials: true,
 })
 

@@ -9,18 +9,17 @@ const UpdateProduct = () => {
     const { singleMovie } = useMovieDetails()
     const [loading, setLoading] = useState(false)
     const { name, image, brand, type, details, ticketPrice, rating, _id } = singleMovie || {};
-    const [selectedBrand, setSelectedBrand] = useState(brand);
+    const [selectedBrand, setSelectedBrand] = useState(brand || "");
     const navigate = useNavigate();
-
 
 
     const handleUpdateMovie = (event) => {
         event.preventDefault()
         setLoading(true)
-        const form = event.target
+        const form = event.target;
         const movieDetails = {
             name: form.name.value,
-            brand: selectedBrand,
+            brand: selectedBrand ? selectedBrand : brand,
             type: form.type.value,
             details: form.details.value,
             ticketPrice: form.ticketPrice.value,
@@ -33,6 +32,7 @@ const UpdateProduct = () => {
                 'content-type': 'application/json',
             },
             body: JSON.stringify(movieDetails),
+            credentials: 'include'
         })
             .then((res) => res.json())
             .then((data) => {
@@ -45,7 +45,7 @@ const UpdateProduct = () => {
                     })
                     setLoading(false)
                     form.reset()
-                    navigate("/")
+                    navigate("/products")
                 }
             })
     }
@@ -85,7 +85,9 @@ const UpdateProduct = () => {
                             <select
                                 onChange={ (e) => setSelectedBrand(e.target.value) }
                                 className='select select-primary w-full text-base'
-                                value={ selectedBrand } // Use value instead of defaultValue
+                                value={ brand } // Use value instead of defaultValue
+
+                                defaultValue={ brand } // Set defaultValue based on selectedBrand or use the original brand value
                             >
                                 <option disabled>Select brand</option>
                                 { brands && brands.length > 0 ? (
@@ -200,7 +202,7 @@ const UpdateProduct = () => {
                                     type='submit'
                                     className='btn btn-primary'
                                 >
-                                    Add Movie
+                                    Update Now
                                 </button>
                             ) }
                         </div>

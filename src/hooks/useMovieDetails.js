@@ -10,9 +10,7 @@ const useMovieDetails = () => {
     useEffect(() => {
         setLoading(true)
         const fetchData = async () => {
-            const res = await fetch(
-                `${ import.meta.env.VITE_SERVER_URL }/singleMovie/${ id }`,
-            )
+            const res = await fetch(`${ import.meta.env.VITE_SERVER_URL }/singleMovie/${ id }`, { credentials: "include" })
             const data = await res.json()
             const singleMovie = data.data
             setLoading(false)
