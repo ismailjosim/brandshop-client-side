@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import useAuth from '../hooks/useAuth';
 import { useState } from 'react';
 import useNavigateUser from '../hooks/useNavigateUser';
@@ -10,6 +10,7 @@ const Register = () => {
     const { createNewUser, updateUserProfile } = useAuth();
     const [error, setError] = useState('');
     const navigateNow = useNavigateUser();
+
 
     const handleRegister = e => {
         setError('');
