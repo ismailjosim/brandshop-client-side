@@ -13,69 +13,69 @@ import AllProducts from '../pages/AllProducts'
 import UpdateProduct from '../pages/UpdateProduct'
 
 const routes = createBrowserRouter([
-    {
-        path: '/',
-        element: <Main />,
-        errorElement: <ErrorPage />,
-        children: [
-            {
-                path: '/',
-                element: <Home />,
-            },
-            {
-                path: '/brands/:name',
-                element: <SingleBrand />,
-            },
-            {
-                path: '/movieDetails/:id',
-                element: (
-                    <Private>
-                        <MovieDetails />
-                    </Private>
-                ),
-            },
-            {
-                path: '/add_product',
-                element: (
-                    <Private>
-                        <AddProduct />
-                    </Private>
-                ),
-            },
-            {
-                path: '/update_product/:id',
-                element: (
-                    <Private>
-                        <UpdateProduct />
-                    </Private>
-                ),
-            },
-            {
-                path: '/products',
-                element: (
-                    <Private>
-                        <AllProducts />
-                    </Private>
-                ),
-            },
-            {
-                path: '/cart',
-                element: (
-                    <Private>
-                        <Cart />
-                    </Private>
-                ),
-            },
-            {
-                path: '/login',
-                element: <Login />,
-            },
-            {
-                path: '/register',
-                element: <Register />,
-            },
-        ],
-    },
+	{
+		path: '/',
+		element: <Main />,
+		errorElement: <ErrorPage />,
+		children: [
+			{
+				path: '/',
+				element: <Home />,
+			},
+			{
+				path: '/brands/:name',
+				element: <SingleBrand />,
+			},
+			{
+				path: '/movieDetails/:id',
+				element: (
+					<Private>
+						<MovieDetails />
+					</Private>
+				),
+			},
+			{
+				path: '/add_product',
+				element: (
+					<Private>
+						<AddProduct />
+					</Private>
+				),
+			},
+			{
+				path: '/update_product/:id',
+				element: (
+					<Private>
+						<UpdateProduct />
+					</Private>
+				),
+			},
+			{
+				path: '/products',
+				element: (
+					<Private>
+						<AllProducts />
+					</Private>
+				),
+			},
+			{
+				path: '/cart',
+				element: (
+					<Private>
+						<Cart />
+					</Private>
+				),
+			},
+			{
+				path: '/login',
+				element: <Login />,
+			},
+			{
+				path: '/register',
+				element: <Register />,
+			},
+		],
+	},
 ])
 
 export default routes
